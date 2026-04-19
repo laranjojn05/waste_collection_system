@@ -267,6 +267,11 @@ const AdminDashboard = () => {
     0
   );
 
+  const hasCompositionData = compositionTotal > 0;
+  const visibleCompositionData = hasCompositionData
+    ? compositionData.filter(item => item.value > 0)
+    : [];
+
   const summaryCards =
     userInfo?.role === "admin"
       ? [
@@ -480,7 +485,7 @@ const AdminDashboard = () => {
                       action={
                         <div className="rounded-[12px] border border-white/8 bg-black/20 px-2.5 py-1.5 text-right">
                           <p className="text-[9px] uppercase tracking-[0.16em] text-emerald-100/42">
-                            Total
+                            Total {!hasCompositionData && "(empty)"}
                           </p>
                           <p className="text-base font-bold text-emerald-50">
                             {compositionTotal}
@@ -489,50 +494,66 @@ const AdminDashboard = () => {
                       }
                     />
 
-                    <div className="mt-3 grid gap-3 sm:grid-cols-[84px_minmax(0,1fr)] xl:grid-cols-1 xl:grid-rows-[84px_minmax(0,1fr)] 2xl:grid-cols-[84px_minmax(0,1fr)] 2xl:grid-rows-1">
-                      <div className="mx-auto h-[84px] w-[84px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <PieChart>
-                            <Pie
-                              data={compositionData}
-                              dataKey="value"
-                              nameKey="name"
-                              innerRadius={20}
-                              outerRadius={34}
-                              paddingAngle={3}
-                              stroke="transparent"
-                            >
-                              {compositionData.map((entry) => (
-                                <Cell key={entry.name} fill={entry.fill} />
-                              ))}
-                            </Pie>
-                            <Tooltip content={<CustomTooltip />} />
-                          </PieChart>
-                        </ResponsiveContainer>
-                      </div>
-
-                      <div className="space-y-2 xl:min-h-0 xl:overflow-y-auto xl:pr-1">
-                        {compositionData.map((item) => (
-                          <div
-                            key={item.name}
-                            className="flex items-center justify-between rounded-xl border border-white/8 bg-black/20 px-3 py-2"
-                          >
-                            <div className="flex min-w-0 items-center gap-2">
-                              <span
-                                className="h-2.5 w-2.5 shrink-0 rounded-full"
-                                style={{ backgroundColor: item.fill }}
-                              />
-                              <span className="truncate text-[12px] font-semibold text-emerald-50">
-                                {item.name}
-                              </span>
-                            </div>
-
-                            <span className="ml-2 text-sm font-bold text-emerald-300">
-                              {item.value}
-                            </span>
+                    <div className="mt-4 grid grid-cols-[140px_1fr] gap-4 items-start min-h-[160px] sm:grid-cols-[140px_1fr]">
+                      {hasCompositionData ? (
+                        <>
+                          <div className="relative mx-auto h-[140px] w-[140px] rounded-2xl bg-black/10 border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
+                            <ResponsiveContainer width="100%" height="100%">
+                              <PieChart>
+                                <Pie
+                                  data={visibleCompositionData}
+                                  dataKey="value"
+                                  nameKey="name"
+                                  innerRadius={28}
+                                  outerRadius={60}
+                                  paddingAngle={3}
+                                  stroke="transparent"
+                                >
+                                  {visibleCompositionData.map((entry) => (
+                                    <Cell key={entry.name} fill={entry.fill} />
+                                  ))}
+                                </Pie>
+                                <Tooltip content={<CustomTooltip />} />
+                              </PieChart>
+                            </ResponsiveContainer>
                           </div>
-                        ))}
-                      </div>
+
+                          <div className="space-y-2.5 max-h-[160px] overflow-y-auto pr-1">
+                            {visibleCompositionData.map((item) => (
+                              <div
+                                key={item.name}
+                                className="group flex items-center justify-between cursor-pointer rounded-xl border border-white/8 bg-black/20 px-3 py-2 transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.015] hover:border-emerald-300/30 hover:bg-white/5 hover:shadow-lg"
+                              >
+                                <div className="flex min-w-0 items-center gap-2">
+                                  <span
+                                    className="h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-white/20"
+                                    style={{ backgroundColor: item.fill }}
+                                  />
+                                  <span className="truncate text-[12px] font-semibold text-emerald-50 group-hover:text-emerald-200">
+                                    {item.name}
+                                  </span>
+                                </div>
+
+                                <span className="ml-2 text-sm font-bold text-emerald-300 group-hover:text-emerald-100">
+                                  {item.value}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      ) : (
+                        <div className="col-span-2 flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/8 bg-black/20 p-8 text-center">
+                          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-emerald-500/20 border-2 border-emerald-300/20 flex items-center justify-center">
+                            <svg className="h-6 w-6 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-sm font-semibold text-emerald-50">No composition data yet</p>
+                            <p className="mt-1 text-xs text-emerald-300/70">Users and announcements will appear here when available.</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
