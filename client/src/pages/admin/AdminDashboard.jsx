@@ -504,10 +504,13 @@ const AdminDashboard = () => {
                                   data={visibleCompositionData}
                                   dataKey="value"
                                   nameKey="name"
-                                  innerRadius={28}
-                                  outerRadius={60}
-                                  paddingAngle={3}
+                                  innerRadius={30}
+                                  outerRadius={62}
+                                  paddingAngle={isSingleSlice ? 0 : 3}
+                                  startAngle={90}
+                                  endAngle={-270}
                                   stroke="transparent"
+                                  isAnimationActive={false}
                                 >
                                   {visibleCompositionData.map((entry) => (
                                     <Cell key={entry.name} fill={entry.fill} />
