@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import OperatorRoute from "./components/OperatorRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import OperatorDashboard from "./pages/operator/OperatorDashboard";
 import ManageReports from "./pages/ManageReports";
 import ManageSchedules from "./pages/ManageSchedules";
 import ManageUsers from "./pages/admin/ManageUsers";
@@ -49,6 +50,15 @@ function App() {
           }
         />
 
+        <Route
+          path="/operator"
+          element={
+            <OperatorRoute>
+              <OperatorDashboard />
+            </OperatorRoute>
+          }
+        />
+        
         <Route
           path="/operator/schedules"
           element={
