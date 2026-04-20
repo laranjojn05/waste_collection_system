@@ -14,7 +14,7 @@ const MotionDiv = motion.div;
 
 const ManageAnnouncements = () => {
   const location = useLocation();
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
 
   const [announcements, setAnnouncements] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -59,6 +59,8 @@ const ManageAnnouncements = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("userInfo.token:", userInfo.token);
 
     try {
       if (editingId) {

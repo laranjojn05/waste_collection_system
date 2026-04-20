@@ -272,6 +272,8 @@ const AdminDashboard = () => {
     ? compositionData.filter(item => item.value > 0)
     : [];
 
+  const isSingleSlice = visibleCompositionData.length === 1;
+
   const summaryCards =
     userInfo?.role === "admin"
       ? [
