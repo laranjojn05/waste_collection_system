@@ -8,6 +8,7 @@ export const createWasteReport = async (req, res) => {
 
     const report = new Report({
       type: "waste",
+      image: req.file ? `/uploads/reports/${req.file.filename}` : "",
       description: req.body.description,
       location: req.body.location,
       createdBy: req.user.id,

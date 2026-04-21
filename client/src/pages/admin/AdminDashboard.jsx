@@ -50,11 +50,11 @@ const StatCard = ({ label, value, helper }) => (
 );
 
 const OverviewCard = ({ label, value }) => (
-  <div className="rounded-[14px] border border-white/8 bg-black/20 px-3 py-2.5">
+  <div className="rounded-[14px] border border-white/8 bg-black/20 px-3 py-2">
     <p className="text-[9px] uppercase tracking-[0.16em] text-emerald-100/45 sm:text-[10px]">
       {label}
     </p>
-    <p className="mt-1 text-lg font-semibold tracking-tight text-emerald-50 sm:text-xl">
+    <p className="mt-1 text-base font-semibold tracking-tight text-emerald-50 sm:text-lg">
       {value}
     </p>
   </div>
@@ -138,7 +138,8 @@ const AdminDashboard = () => {
   const totalSubmittedReports = useMemo(
     () =>
       userReports.reduce(
-        (sum, group) => sum + (Array.isArray(group.reports) ? group.reports.length : 0),
+        (sum, group) =>
+          sum + (Array.isArray(group.reports) ? group.reports.length : 0),
         0
       ),
     [userReports]
@@ -152,10 +153,7 @@ const AdminDashboard = () => {
     [userReports]
   );
 
-  const recentUserReports = useMemo(
-    () => [...userReports].slice(0, 3),
-    [userReports]
-  );
+  const recentUserReports = useMemo(() => [...userReports].slice(0, 3), [userReports]);
 
   const sidebarLinks = [
     { to: "/admin", label: "Dashboard" },
@@ -212,7 +210,7 @@ const AdminDashboard = () => {
     <div className="app-shell min-h-screen xl:h-screen xl:overflow-hidden">
       <BackgroundFx />
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1480px] gap-3 px-3 py-3 sm:px-4 sm:py-4 xl:h-screen xl:min-h-0 xl:gap-4 xl:overflow-hidden">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1480px] gap-3 px-3 py-2 sm:px-4 sm:py-4 xl:h-screen xl:min-h-0 xl:gap-4 xl:overflow-hidden">
         <aside
           className={`hidden w-[208px] shrink-0 ${panelClassName} xl:flex xl:h-[calc(100vh-2rem)] xl:flex-col xl:p-3`}
         >
@@ -259,18 +257,15 @@ const AdminDashboard = () => {
         </aside>
 
         <main className="flex min-w-0 flex-1 flex-col gap-3 xl:min-h-0 xl:overflow-hidden">
-          <div className={`${panelClassName} px-4 py-3 xl:shrink-0`}>
+          <div className={`${panelClassName} px-4 py-2 xl:shrink-0`}>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-emerald-100/50 sm:text-[10px]">
                   Administrative Dashboard
                 </p>
-                <h2 className="mt-1 text-lg font-bold tracking-tight text-emerald-50 sm:text-xl">
+                <h2 className="mt-0.5 text-lg font-bold tracking-tight text-emerald-50 sm:text-xl">
                   System Overview
                 </h2>
-                <p className="mt-1.5 max-w-2xl text-xs text-emerald-100/58 sm:text-sm">
-                  Review user account status and operator-submitted user reports.
-                </p>
               </div>
 
               <div className="flex flex-wrap gap-2 xl:hidden">
@@ -314,12 +309,12 @@ const AdminDashboard = () => {
               </div>
             </div>
           ) : (
-            <div className="grid gap-3 xl:min-h-0 xl:flex-1 xl:grid-cols-[minmax(0,1.62fr)_minmax(300px,0.88fr)] xl:overflow-hidden">
+            <div className="grid gap-3 xl:h-full xl:flex-1 xl:grid-cols-[minmax(0,1.62fr)_minmax(300px,0.88fr)] xl:overflow-hidden">
               <MotionDiv
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="flex min-w-0 flex-col gap-3 xl:min-h-0"
+                className="flex min-w-0 flex-col gap-3 xl:h-full xl:min-h-0"
               >
                 <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 xl:shrink-0">
                   {statCards.map((card, index) => (
@@ -334,14 +329,15 @@ const AdminDashboard = () => {
                   ))}
                 </section>
 
-                <section className="flex flex-col gap-4 xl:min-h-0 xl:flex-1">
-                  <div className={`${panelClassName} p-4 w-full`}>
+                <section className="grid gap-3 xl:h-full xl:min-h-0 xl:grid-rows-[190px_1fr]">
+                  <div className={`${panelClassName} flex h-full min-h-0 flex-col p-4 overflow-hidden`}>
                     <SectionHeading
                       eyebrow="Moderation Insight"
                       title="Admin activity overview"
                     />
 
-                      <div className="mt-4 h-[240px] w-full rounded-[20px] border border-white/10 bg-black/25 p-3 sm:h-[280px] shadow-[0_10px_30px_rgba(0,0,0,0.25)]">                      <ResponsiveContainer width="100%" height="100%">
+                    <div className="mt-2 h-full min-h-0 rounded-[20px] border border-white/10 bg-black/25 p-2 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
+                      <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={chartData} barCategoryGap={18}>
                           <CartesianGrid
                             stroke="rgba(255,255,255,0.05)"
@@ -377,7 +373,7 @@ const AdminDashboard = () => {
                     </div>
                   </div>
 
-                  <div className={`${panelClassName} p-4`}>
+                  <div className={`${panelClassName} flex h-full min-h-0 flex-col justify-center p-4`}>
                     <SectionHeading
                       eyebrow="Admin Summary"
                       title="Moderation overview"
@@ -400,7 +396,7 @@ const AdminDashboard = () => {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.04 }}
-                className="flex min-w-0 flex-col gap-3 xl:min-h-0"
+                className="flex min-w-0 flex-col gap-3 xl:h-full xl:min-h-0"
               >
                 <section className={`${panelClassName} p-4 xl:shrink-0`}>
                   <SectionHeading eyebrow="Quick Access" title="Sections" />
@@ -428,7 +424,9 @@ const AdminDashboard = () => {
                   </div>
                 </section>
 
-                <section className={`${panelClassName} p-4 xl:min-h-0 xl:overflow-hidden`}>
+                <section
+                  className={`${panelClassName} flex min-h-0 flex-col p-4 xl:flex-1 xl:overflow-hidden`}
+                >
                   <SectionHeading
                     eyebrow="Recent User Reports"
                     title="Latest operator submissions"
@@ -442,7 +440,7 @@ const AdminDashboard = () => {
                     }
                   />
 
-                  <div className="mt-3 space-y-2.5 xl:max-h-full xl:overflow-y-auto xl:pr-1">
+                  <div className="mt-3 space-y-2.5 xl:min-h-0 xl:flex-1 xl:overflow-y-auto xl:pr-1">
                     {recentUserReports.length > 0 ? (
                       recentUserReports.map((group) => (
                         <ItemCard
@@ -451,9 +449,7 @@ const AdminDashboard = () => {
                           meta={`${group.reports?.length || 0} report${
                             (group.reports?.length || 0) > 1 ? "s" : ""
                           }`}
-                          body={
-                            group.reports?.[0]?.reason || "No reason provided"
-                          }
+                          body={group.reports?.[0]?.reason || "No reason provided"}
                         />
                       ))
                     ) : (

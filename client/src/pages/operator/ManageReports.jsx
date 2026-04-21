@@ -77,10 +77,10 @@ const ManageReports = () => {
     [reports]
   );
 
-  const approvedCount = useMemo(
+  const inProgressCount = useMemo(
     () =>
       reports.filter(
-        (item) => String(item.status || "").toLowerCase() === "approved"
+        (item) => String(item.status || "").toLowerCase() === "in-progress"
       ).length,
     [reports]
   );
@@ -108,7 +108,7 @@ const ManageReports = () => {
       return "border-amber-300/20 bg-amber-400/10 text-amber-200";
     }
 
-    if (normalized === "approved") {
+    if (normalized === "in-progress") {
       return "border-cyan-300/20 bg-cyan-400/10 text-cyan-200";
     }
 
@@ -121,6 +121,17 @@ const ManageReports = () => {
     }
 
     return "border-white/10 bg-white/10 text-emerald-100/70";
+  };
+
+  const formatStatusLabel = (status) => {
+    const normalized = String(status || "").toLowerCase();
+
+    if (normalized === "in-progress") return "In Progress";
+    if (normalized === "pending") return "Pending";
+    if (normalized === "rejected") return "Rejected";
+    if (normalized === "resolved") return "Resolved";
+
+    return status || "Unknown";
   };
 
   if (!userInfo) {
@@ -145,7 +156,8 @@ const ManageReports = () => {
               Reports Center
             </h1>
             <p className="mt-2 text-sm leading-6 text-emerald-100/65">
-              Review submitted waste reports, update status, and maintain issue records.
+              Review submitted waste reports, update status, and maintain issue
+              records.
             </p>
           </div>
 
@@ -237,10 +249,10 @@ const ManageReports = () => {
               className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
-                Approved
+                In Progress
               </p>
               <p className="mt-2 text-3xl font-bold text-cyan-200">
-                {approvedCount}
+                {inProgressCount}
               </p>
             </MotionDiv>
 
@@ -314,7 +326,7 @@ const ManageReports = () => {
                               report.status
                             )}`}
                           >
-                            {report.status || "unknown"}
+                            {formatStatusLabel(report.status)}
                           </span>
                         </div>
 
@@ -370,16 +382,28 @@ const ManageReports = () => {
                               handleStatusChange(report._id, e.target.value)
                             }
                           >
-                            <option value="pending" className="bg-[#0b1d17] text-emerald-50">
+                            <option
+                              value="pending"
+                              className="bg-[#0b1d17] text-emerald-50"
+                            >
                               Pending
                             </option>
-                            <option value="approved" className="bg-[#0b1d17] text-emerald-50">
-                              Approved
+                            <option
+                              value="in-progress"
+                              className="bg-[#0b1d17] text-emerald-50"
+                            >
+                              In Progress
                             </option>
-                            <option value="rejected" className="bg-[#0b1d17] text-emerald-50">
+                            <option
+                              value="rejected"
+                              className="bg-[#0b1d17] text-emerald-50"
+                            >
                               Rejected
                             </option>
-                            <option value="resolved" className="bg-[#0b1d17] text-emerald-50">
+                            <option
+                              value="resolved"
+                              className="bg-[#0b1d17] text-emerald-50"
+                            >
                               Resolved
                             </option>
                           </select>
