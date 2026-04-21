@@ -3,12 +3,14 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import {
-  createReport,
+  createWasteReport,
+  reportUser,
+  getWasteReports,
+  getUserReports,
   getMyReports,
-  getAllReports,
-  updateReportStatus,
   updateMyReport,
   deleteMyReport,
+  updateReportStatus,
   deleteAnyReport,
 } from "../controllers/reportController.js";
 import protect from "../middleware/authMiddleware.js";
@@ -53,13 +55,69 @@ const upload = multer({
   },
 });
 
-router.post("/", protect, upload.single("photo"), createReport);
-router.get("/my-reports", protect, getMyReports);
-router.put("/my-reports/:id", protect, upload.single("photo"), updateMyReport);
-router.delete("/my-reports/:id", protect, deleteMyReport);
+router.post(
+  "/waste",
+  protect,
+  authorizeRoles("user"),
+  upload.single("image"),
+  createWasteReport
+);
 
-router.get("/", protect, authorizeRoles("operator"), getAllReports);
-router.put("/:id", protect, authorizeRoles("operator"), updateReportStatus);
-router.delete("/:id", protect, authorizeRoles("operator"), deleteAnyReport);
+router.get(
+  "/my",
+  protect,
+  authorizeRoles("user"),
+  getMyReports
+);
+
+router.put(
+  "/my/:id",
+  protect,
+  authorizeRoles("user"),
+  upload.single("image"),
+  updateMyReport
+);
+
+router.delete(
+  "/my/:id",
+  protect,
+  authorizeRoles("user"),
+  deleteMyReport
+);
+
+router.get(
+  "/waste",
+  protect,
+  authorizeRoles("operator"),
+  getWasteReports
+);
+
+router.post(
+  "/user",
+  protect,
+  authorizeRoles("operator"),
+  reportUser
+);
+
+router.put(
+  "/:id/status",
+  protect,
+  authorizeRoles("operator"),
+  updateReportStatus
+);
+
+router.delete(
+  "/:id",
+  protect,
+  authorizeRoles("operator"),
+  deleteAnyReport
+);
+
+router.get(
+  "/user",
+  protect,
+  authorizeRoles("admin"),
+  getUserReports
+);
 
 export default router;

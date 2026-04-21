@@ -14,6 +14,7 @@ import ManageReports from "./pages/ManageReports";
 import ManageSchedules from "./pages/ManageSchedules";
 import ManageUsers from "./pages/admin/ManageUsers";
 import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
+import UserRoute from "./components/UserRoute";
 
 function App() {
   return (
@@ -88,18 +89,18 @@ function App() {
         <Route
           path="/report"
           element={
-            <ProtectedRoute>
+            <UserRoute>
               <Report />
-            </ProtectedRoute>
+            </UserRoute>
           }
         />
 
         <Route
           path="/my-reports"
           element={
-            <ProtectedRoute>
+            <UserRoute>
               <MyReports />
-            </ProtectedRoute>
+            </UserRoute>
           }
         />
 

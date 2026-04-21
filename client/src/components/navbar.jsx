@@ -17,11 +17,16 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { to: "/home", label: "Home" },
-    { to: "/schedule", label: "Schedule" },
-    { to: "/report", label: "Report" },
-    { to: "/my-reports", label: "My Reports" },
-    { to: "/profile", label: "Profile" },
+  { to: "/home", label: "Home" },
+  { to: "/schedule", label: "Schedule" },
+  ...(user?.role === "user"
+    ? [
+        { to: "/report", label: "Report" },
+        { to: "/my-reports", label: "My Reports" },
+      ]
+    : []),
+
+  { to: "/profile", label: "Profile" },
   ];
 
 const dashboardLink =

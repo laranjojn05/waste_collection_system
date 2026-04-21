@@ -30,7 +30,7 @@ const Report = () => {
       formData.append("location", form.location);
 
       if (photo) {
-        formData.append("photo", photo);
+        formData.append("image", photo);
       }
 
       await createReport(formData, userInfo.token);

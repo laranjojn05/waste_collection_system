@@ -1,44 +1,34 @@
 import mongoose from "mongoose";
 
-const reportSchema = new mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    issueType: {
-      type: String,
-      enum: [
-        "Missed Collection",
-        "Illegal Dumping",
-        "Overflowing Bin",
-        "Uncollected Waste",
-        "Other",
-      ],
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    location: {
-      type: String,
-      required: true,
-    },
-status: {
-  type: String,
-  enum: ["Pending", "Approved", "Rejected", "Resolved"],
-  default: "Pending",
-},
-    photo: {
-      type: String,
-      default: "",
-    },
+const reportSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ["waste", "user"],
+    required: true,
   },
-  { timestamps: true }
-);
 
-const Report = mongoose.model("Report", reportSchema);
+  // For waste reports
+  description: String,
+  location: String,
+  image: String,
 
-export default Report;
+
+  reportedUser: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  reason: String,
+
+
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+
+  status: {
+    type: String,
+    default: "pending",
+  },
+}, { timestamps: true });
+
+export default mongoose.model("Report", reportSchema);

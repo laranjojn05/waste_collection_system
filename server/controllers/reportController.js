@@ -1,26 +1,77 @@
 import Report from "../models/Report.js";
 
-export const createReport = async (req, res) => {
+export const createWasteReport = async (req, res) => {
   try {
-    const { issueType, description, location } = req.body;
+    if (req.user.role !== "user") {
+      return res.status(403).json({ message: "Only users can submit waste reports" });
+    }
 
-    const report = await Report.create({
-      user: req.user._id,
-      issueType,
-      description,
-      location,
-      photo: req.file ? `/uploads/reports/${req.file.filename}` : "",
+    const report = new Report({
+      type: "waste",
+      description: req.body.description,
+      location: req.body.location,
+      createdBy: req.user.id,
     });
 
+    await report.save();
     res.status(201).json(report);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
+export const reportUser = async (req, res) => {
+  try {
+    if (req.user.role !== "operator") {
+      return res.status(403).json({ message: "Only operators can report users" });
+    }
+
+    const report = new Report({
+      type: "user",
+      reportedUser: req.body.userId,
+      reason: req.body.reason,
+      createdBy: req.user.id,
+    });
+
+    await report.save();
+    res.status(201).json(report);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
+export const getWasteReports = async (req, res) => {
+  try {
+    if (req.user.role !== "operator") {
+      return res.status(403).json({ message: "Only operators" });
+    }
+
+    const reports = await Report.find({ type: "waste" }).populate("createdBy");
+    res.json(reports);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
+export const getUserReports = async (req, res) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Only admin" });
+    }
+
+    const reports = await Report.find({ type: "user" })
+      .populate("reportedUser")
+      .populate("createdBy");
+
+    res.json(reports);
+  } catch (err) {
+    res.status(500).json(err.message);
   }
 };
 
 export const getMyReports = async (req, res) => {
   try {
-    const reports = await Report.find({ user: req.user._id }).sort({
+    const reports = await Report.find({ createdBy: req.user.id, type: "waste" }).sort({
       createdAt: -1,
     });
     res.json(reports);
@@ -32,7 +83,8 @@ export const getMyReports = async (req, res) => {
 export const getAllReports = async (req, res) => {
   try {
     const reports = await Report.find()
-      .populate("user", "name email")
+      .populate("createdBy", "name email")
+      .populate("reportedUser", "name email")
       .sort({ createdAt: -1 });
 
     res.json(reports);
@@ -44,7 +96,7 @@ export const getAllReports = async (req, res) => {
 export const updateReportStatus = async (req, res) => {
   try {
     const { status } = req.body;
-    const allowedStatuses = ["Pending", "Approved", "Rejected", "Resolved"];
+    const allowedStatuses = ["pending", "in-progress", "resolved", "rejected"];
 
     if (!allowedStatuses.includes(status)) {
       return res.status(400).json({ message: "Invalid report status" });
@@ -67,7 +119,7 @@ export const updateReportStatus = async (req, res) => {
 
 export const updateMyReport = async (req, res) => {
   try {
-    const { issueType, description, location } = req.body;
+    const { description, location } = req.body;
 
     const report = await Report.findById(req.params.id);
 
@@ -75,22 +127,25 @@ export const updateMyReport = async (req, res) => {
       return res.status(404).json({ message: "Report not found" });
     }
 
-    if (report.user.toString() !== req.user._id.toString()) {
+    if (report.createdBy.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Not allowed to edit this report" });
     }
 
-    if (report.status !== "Pending") {
+    if (report.type !== "waste") {
+      return res.status(400).json({ message: "Only waste reports can be edited here" });
+    }
+
+    if (report.status !== "pending") {
       return res
         .status(400)
         .json({ message: "Only pending reports can be edited" });
     }
 
-    report.issueType = issueType;
     report.description = description;
     report.location = location;
 
     if (req.file) {
-      report.photo = `/uploads/reports/${req.file.filename}`;
+      report.image = `/uploads/reports/${req.file.filename}`;
     }
 
     const updatedReport = await report.save();
@@ -108,11 +163,15 @@ export const deleteMyReport = async (req, res) => {
       return res.status(404).json({ message: "Report not found" });
     }
 
-    if (report.user.toString() !== req.user._id.toString()) {
+    if (report.createdBy.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Not allowed to delete this report" });
     }
 
-    if (report.status !== "Pending") {
+    if (report.type !== "waste") {
+      return res.status(400).json({ message: "Only waste reports can be deleted here" });
+    }
+
+    if (report.status !== "pending") {
       return res
         .status(400)
         .json({ message: "Only pending reports can be deleted" });
