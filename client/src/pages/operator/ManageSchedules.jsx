@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import BackgroundFx from "../components/backgroundfx";
-import { barangays } from "../data/barangays";
+import BackgroundFx from "../../components/backgroundfx";
+import { barangays } from "../../data/barangays";
 import {
   getSchedules,
   createSchedule,
   updateSchedule,
   deleteSchedule,
-} from "../services/scheduleService";
+} from "../../services/scheduleService";
 
 const MotionDiv = motion.div;
 
@@ -29,7 +29,10 @@ const ManageSchedules = () => {
   });
 
   useEffect(() => {
-    if (!userInfo || userInfo.role !== "operator") return;
+    if (!userInfo || userInfo.role !== "operator") {
+      setLoading(false);
+      return;
+    }
 
     const fetchSchedules = async () => {
       try {
@@ -113,6 +116,8 @@ const ManageSchedules = () => {
   const sidebarLinks = [
     { to: "/operator/reports", label: "Manage Reports" },
     { to: "/operator/schedules", label: "Manage Schedules" },
+    { to: "/operator/announcements", label: "Manage Announcements" },
+    { to: "/operator/report-user", label: "Report User" },
   ];
 
   const upcomingCount = useMemo(
@@ -500,7 +505,7 @@ const ManageSchedules = () => {
                       No schedules found
                     </p>
                     <p className="mt-2 text-sm text-emerald-100/65">
-                      Create your first schedule using the form on the left.
+                      Create your first schedule using the form.
                     </p>
                   </div>
                 ) : (

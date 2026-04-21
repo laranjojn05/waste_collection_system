@@ -27,7 +27,10 @@ const ManageAnnouncements = () => {
   });
 
   useEffect(() => {
-    if (!userInfo || userInfo.role !== "admin") return;
+    if (!userInfo || userInfo.role !== "operator") {
+      setLoading(false);
+      return;
+    }
 
     const fetchAnnouncements = async () => {
       try {
@@ -59,8 +62,6 @@ const ManageAnnouncements = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("userInfo.token:", userInfo.token);
 
     try {
       if (editingId) {
@@ -100,17 +101,18 @@ const ManageAnnouncements = () => {
   };
 
   const sidebarLinks = [
-    { to: "/admin", label: "Dashboard" },
-    { to: "/admin/users", label: "Manage Users" },
-    { to: "/admin/announcements", label: "Manage Announcements" },
+    { to: "/operator/reports", label: "Manage Reports" },
+    { to: "/operator/schedules", label: "Manage Schedules" },
+    { to: "/operator/announcements", label: "Manage Announcements" },
+    { to: "/operator/report-user", label: "Report User" },
   ];
 
   if (!userInfo) {
     return <Navigate to="/" />;
   }
 
-  if (userInfo.role !== "admin") {
-    return <Navigate to="/admin" />;
+  if (userInfo.role !== "operator") {
+    return <Navigate to="/home" />;
   }
 
   return (
@@ -121,7 +123,7 @@ const ManageAnnouncements = () => {
         <aside className="hidden h-full w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl xl:flex xl:flex-col">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-100/50">
-              Admin Panel
+              Operator Panel
             </p>
             <h1 className="mt-2 text-2xl font-bold tracking-tight text-emerald-50">
               Announcement Center

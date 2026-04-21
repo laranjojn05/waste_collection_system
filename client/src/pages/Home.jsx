@@ -49,34 +49,44 @@ const Home = () => {
 
   const latestAnnouncement = visibleAnnouncements[0] || null;
 
-  const quickLinks = [
-    {
-      title: "Collection Schedule",
-      description:
-        "Review active and upcoming pickup schedules in your barangay.",
-      to: "/schedule",
-      tag: "Public Access",
-    },
-    {
-      title: "Submit Report",
-      description:
-        "Create a waste-related concern report with clear issue details.",
-      to: "/report",
-      tag: "Citizen Action",
-    },
-    {
-      title: "My Reports",
-      description:
-        "Track the status of your submitted reports and updates.",
-      to: "/my-reports",
-      tag: "Tracking",
-    },
-    ...(userInfo?.role?.toLowerCase() === "operator"
+  const quickLinks =
+    userInfo?.role?.toLowerCase() === "user"
+      ? [
+          {
+            title: "Collection Schedule",
+            description:
+              "Review active and upcoming pickup schedules in your barangay.",
+            to: "/schedule",
+            tag: "Public Access",
+          },
+          {
+            title: "Submit Report",
+            description:
+              "Create a waste-related concern report with clear issue details.",
+            to: "/report",
+            tag: "Citizen Action",
+          },
+          {
+            title: "My Reports",
+            description:
+              "Track the status of your submitted reports and updates.",
+            to: "/my-reports",
+            tag: "Tracking",
+          },
+          {
+            title: "Profile",
+            description:
+              "View and manage your account details and assigned barangay.",
+            to: "/profile",
+            tag: "Account",
+          },
+        ]
+      : userInfo?.role?.toLowerCase() === "operator"
       ? [
           {
             title: "Manage Reports",
             description:
-              "Review, approve, reject, and resolve submitted reports.",
+              "Review and update waste reports submitted by users.",
             to: "/operator/reports",
             tag: "Operator",
           },
@@ -87,9 +97,53 @@ const Home = () => {
             to: "/operator/schedules",
             tag: "Operator",
           },
+          {
+            title: "Manage Announcements",
+            description:
+              "Create and publish barangay announcements.",
+            to: "/operator/announcements",
+            tag: "Operator",
+          },
+          {
+            title: "Report User",
+            description:
+              "Send a user-related report to admin for review.",
+            to: "/operator/report-user",
+            tag: "Operator",
+          },
+          {
+            title: "Profile",
+            description:
+              "View and manage your operator account details.",
+            to: "/profile",
+            tag: "Account",
+          },
         ]
-      : []),
-  ];
+      : userInfo?.role?.toLowerCase() === "admin"
+      ? [
+          {
+            title: "Manage Users",
+            description:
+              "Suspend, activate, or ban users in the system.",
+            to: "/admin/users",
+            tag: "Admin",
+          },
+          {
+            title: "User Reports",
+            description:
+              "Review reports submitted by operators about users.",
+            to: "/admin/user-reports",
+            tag: "Admin",
+          },
+          {
+            title: "Profile",
+            description:
+              "View and manage your admin account details.",
+            to: "/profile",
+            tag: "Account",
+          },
+        ]
+      : [];
 
   const stats = [
     {
@@ -115,12 +169,12 @@ const Home = () => {
       text: "Schedules and announcements stay relevant to your assigned community.",
     },
     {
-      title: "Faster issue reporting",
-      text: "Reports are submitted, reviewed, and monitored in one place.",
+      title: "Faster coordination",
+      text: "Reports, schedules, and official updates can be managed in one place.",
     },
     {
       title: "Cleaner communication flow",
-      text: "Residents and operators can work from the same system without confusion.",
+      text: "Residents, operators, and admins can work with the tools assigned to their role.",
     },
   ];
 
@@ -160,10 +214,10 @@ const Home = () => {
                   </h1>
 
                   <p className="mt-4 max-w-2xl text-sm leading-6 text-emerald-100/68 sm:text-[15px]">
-                    Welcome back, {user?.name || "User"}. This system helps you
-                    review schedules, report waste-related concerns, and stay
-                    updated with official barangay announcements through one
-                    organized platform.
+                    Welcome back, {user?.name || "User"}. Use this dashboard to
+                    access the tools and information available for your role,
+                    including schedules, announcements, reports, and system
+                    management.
                   </p>
                 </div>
 
@@ -327,8 +381,8 @@ const Home = () => {
                 </div>
 
                 <p className="max-w-xl text-sm leading-6 text-emerald-100/65">
-                  Open the sections you use most, from reporting and tracking to
-                  operator tools for schedules and approvals.
+                  Open the sections available for your role and quickly access
+                  the tools you manage most often.
                 </p>
               </div>
 

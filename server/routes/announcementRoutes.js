@@ -13,8 +13,8 @@ const router = express.Router();
 
 router.get("/", protect, getAnnouncements);
 
-router.post("/", protect, authorizeRoles("admin"), createAnnouncement);
-router.put("/:id", protect, authorizeRoles("admin"), updateAnnouncement);
-router.delete("/:id", protect, authorizeRoles("admin"), deleteAnnouncement);
+router.post("/", protect, authorizeRoles("operator"), createAnnouncement);
+router.put("/:id", protect, authorizeRoles("operator"), updateAnnouncement);
+router.delete("/:id", protect, authorizeRoles("operator"), deleteAnnouncement);
 
 export default router;

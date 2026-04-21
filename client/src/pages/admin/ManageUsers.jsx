@@ -58,8 +58,9 @@ const ManageUsers = () => {
   const sidebarLinks = [
     { to: "/admin", label: "Dashboard" },
     { to: "/admin/users", label: "Manage Users" },
-    { to: "/admin/announcements", label: "Manage Announcements" },
+    { to: "/admin/user-reports", label: "User Reports" },
   ];
+
 
   const adminCount = useMemo(
     () =>

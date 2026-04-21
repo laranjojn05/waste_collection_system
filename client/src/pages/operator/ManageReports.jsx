@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import BackgroundFx from "../components/backgroundfx";
+import BackgroundFx from "../../components/backgroundfx";
 import {
-  getAllReports,
+  getWasteReports,
   updateReportStatus,
   deleteAnyReport,
-} from "../services/reportService";
+} from "../../services/reportService";
 
 const MotionDiv = motion.div;
 
@@ -17,11 +17,14 @@ const ManageReports = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
-    if (!userInfo || userInfo.role !== "operator") return;
+    if (!userInfo || userInfo.role !== "operator") {
+      setLoading(false);
+      return;
+    }
 
     const fetchReports = async () => {
       try {
-        const data = await getAllReports(userInfo.token);
+        const data = await getWasteReports(userInfo.token);
         setReports(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error(error);
@@ -62,6 +65,8 @@ const ManageReports = () => {
   const sidebarLinks = [
     { to: "/operator/reports", label: "Manage Reports" },
     { to: "/operator/schedules", label: "Manage Schedules" },
+    { to: "/operator/announcements", label: "Manage Announcements" },
+    { to: "/operator/report-user", label: "Report User" },
   ];
 
   const pendingCount = useMemo(
@@ -140,7 +145,7 @@ const ManageReports = () => {
               Reports Center
             </h1>
             <p className="mt-2 text-sm leading-6 text-emerald-100/65">
-              Review submitted reports, update status, and maintain issue records.
+              Review submitted waste reports, update status, and maintain issue records.
             </p>
           </div>
 
@@ -302,24 +307,24 @@ const ManageReports = () => {
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-3">
                           <h4 className="text-lg font-semibold text-emerald-50">
-                            {report.issueType || "Unspecified Issue"}
+                            {report.type === "waste" ? "Waste Report" : "Report"}
                           </h4>
                           <span
                             className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] ${getStatusClasses(
                               report.status
                             )}`}
                           >
-                            {report.status || "Unknown"}
+                            {report.status || "unknown"}
                           </span>
                         </div>
 
                         <div className="mt-3 grid gap-3 md:grid-cols-2">
                           <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-3">
                             <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
-                              User
+                              Submitted By
                             </p>
                             <p className="mt-1 text-sm font-medium text-emerald-50">
-                              {report.user?.name || "Unknown user"}
+                              {report.createdBy?.name || "Unknown user"}
                             </p>
                           </div>
 
@@ -328,7 +333,7 @@ const ManageReports = () => {
                               Location
                             </p>
                             <p className="mt-1 text-sm font-medium text-emerald-50">
-                              {report.location || report.barangay || "No location"}
+                              {report.location || "No location"}
                             </p>
                           </div>
                         </div>
@@ -341,27 +346,40 @@ const ManageReports = () => {
                             {report.description || "No description provided"}
                           </p>
                         </div>
+
+                        {report.image && (
+                          <div className="mt-3 rounded-2xl border border-white/8 bg-white/[0.03] p-3">
+                            <p className="mb-2 text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
+                              Attached Image
+                            </p>
+                            <img
+                              src={`http://localhost:5002${report.image}`}
+                              alt="Report"
+                              className="max-h-64 w-full rounded-2xl object-cover"
+                            />
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex shrink-0 flex-col gap-3 xl:w-[220px]">
                         <div className="relative">
                           <select
                             className="soft-input appearance-none pr-12 text-emerald-50"
-                            value={report.status}
+                            value={String(report.status || "").toLowerCase()}
                             onChange={(e) =>
                               handleStatusChange(report._id, e.target.value)
                             }
                           >
-                            <option value="Pending" className="bg-[#0b1d17] text-emerald-50">
+                            <option value="pending" className="bg-[#0b1d17] text-emerald-50">
                               Pending
                             </option>
-                            <option value="Approved" className="bg-[#0b1d17] text-emerald-50">
+                            <option value="approved" className="bg-[#0b1d17] text-emerald-50">
                               Approved
                             </option>
-                            <option value="Rejected" className="bg-[#0b1d17] text-emerald-50">
+                            <option value="rejected" className="bg-[#0b1d17] text-emerald-50">
                               Rejected
                             </option>
-                            <option value="Resolved" className="bg-[#0b1d17] text-emerald-50">
+                            <option value="resolved" className="bg-[#0b1d17] text-emerald-50">
                               Resolved
                             </option>
                           </select>

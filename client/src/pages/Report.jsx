@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../components/navbar";
 import BackgroundFx from "../components/backgroundfx";
-import { createReport } from "../services/reportService";
+import { createWasteReport } from "../services/reportService";
 import { barangays } from "../data/barangays";
 
 const MotionDiv = motion.div;
@@ -33,7 +33,7 @@ const Report = () => {
         formData.append("image", photo);
       }
 
-      await createReport(formData, userInfo.token);
+      await createWasteReport(formData, userInfo.token);
 
       alert("Report submitted successfully!");
 

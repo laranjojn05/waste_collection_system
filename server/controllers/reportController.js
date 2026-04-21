@@ -55,17 +55,30 @@ export const getWasteReports = async (req, res) => {
 
 export const getUserReports = async (req, res) => {
   try {
-    if (req.user.role !== "admin") {
-      return res.status(403).json({ message: "Only admin" });
-    }
-
     const reports = await Report.find({ type: "user" })
-      .populate("reportedUser")
-      .populate("createdBy");
+      .populate("reportedUser", "name email status")
+      .populate("createdBy", "name");
 
-    res.json(reports);
-  } catch (err) {
-    res.status(500).json(err.message);
+    const grouped = {};
+
+    reports.forEach((report) => {
+      if (!report.reportedUser) return;
+
+      const userId = report.reportedUser._id.toString();
+
+      if (!grouped[userId]) {
+        grouped[userId] = {
+          user: report.reportedUser,
+          reports: [],
+        };
+      }
+
+      grouped[userId].reports.push(report);
+    });
+
+    res.json(Object.values(grouped));
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 

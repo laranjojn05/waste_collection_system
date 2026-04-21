@@ -32,6 +32,8 @@ const Navbar = () => {
 const dashboardLink =
   user?.role === "admin"
     ? { to: "/admin", label: "Admin" }
+    : user?.role === "operator"
+    ? { to: "/operator/reports", label: "Operator" }
     : null;
 
   const allLinks = dashboardLink ? [...navLinks, dashboardLink] : navLinks;

@@ -10,10 +10,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import OperatorRoute from "./components/OperatorRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import ManageReports from "./pages/ManageReports";
-import ManageSchedules from "./pages/ManageSchedules";
+import ManageReports from "./pages/operator/ManageReports";
+import ManageUserReports from "./pages/admin/ManageUserReports";
+import ManageSchedules from "./pages/operator/ManageSchedules";
 import ManageUsers from "./pages/admin/ManageUsers";
-import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
+import ReportUser from "./pages/operator/ReportUser";
+import ManageAnnouncements from "./pages/operator/ManageAnnouncements";
 import UserRoute from "./components/UserRoute";
 
 function App() {
@@ -40,16 +42,41 @@ function App() {
             </AdminRoute>
           }
         />
-
-        <Route
-          path="/admin/announcements"
+          <Route
+          path="/admin/user-reports"
           element={
             <AdminRoute>
-              <ManageAnnouncements />
+              <ManageUserReports />
             </AdminRoute>
           }
         />
+
+        <Route
+          path="/operator/announcements"
+          element={
+            <OperatorRoute>
+              <ManageAnnouncements />
+            </OperatorRoute>
+          }
+        />
         
+        <Route
+          path="/admin/user-reports"
+          element={
+            <AdminRoute>
+              <ManageUserReports />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/operator/report-user"
+          element={
+            <OperatorRoute>
+              <ReportUser />
+            </OperatorRoute>
+          }
+        />
+
         <Route
           path="/operator/schedules"
           element={
