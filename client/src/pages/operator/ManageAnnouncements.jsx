@@ -116,11 +116,15 @@ const ManageAnnouncements = () => {
   }
 
   return (
-    <div className="app-shell h-screen overflow-hidden">
+    <div className="app-shell relative h-screen overflow-hidden bg-slate-950">
       <BackgroundFx />
+      <div className="pointer-events-none absolute inset-0 bg-slate-950/75" />
+      <div className="pointer-events-none absolute left-[-140px] top-[90px] h-[340px] w-[340px] rounded-full bg-emerald-400/7 blur-[100px]" />
+      <div className="pointer-events-none absolute right-[-120px] top-[140px] h-[420px] w-[420px] rounded-full bg-green-400/5 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-[-160px] left-[28%] h-[420px] w-[420px] rounded-full bg-teal-300/5 blur-[130px]" />
 
       <div className="relative z-10 flex h-screen gap-4 p-3 lg:p-4">
-        <aside className="hidden h-full w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl xl:flex xl:flex-col">
+        <aside className="hidden h-full w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl xl:flex xl:flex-col">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-100/50">
               Operator Panel
@@ -143,8 +147,8 @@ const ManageAnnouncements = () => {
                   to={item.to}
                   className={`block rounded-[20px] border px-4 py-3 transition duration-300 ${
                     active
-                      ? "border-emerald-300/20 bg-emerald-400/10 text-white shadow-[0_0_0_1px_rgba(52,211,153,0.08)]"
-                      : "border-white/10 bg-black/20 text-emerald-100/78 hover:border-emerald-300/20 hover:bg-white/[0.05] hover:text-white"
+                      ? "border-emerald-300/20 bg-emerald-400/10 text-white"
+                      : "border-white/10 bg-white/4 text-emerald-100/78 hover:border-emerald-300/20 hover:bg-white/6 hover:text-white"
                   }`}
                 >
                   <p className="text-sm font-semibold">{item.label}</p>
@@ -156,7 +160,7 @@ const ManageAnnouncements = () => {
           <div className="mt-auto">
             <Link
               to="/home"
-              className="flex items-center justify-center rounded-[18px] border border-white/10 bg-black/20 px-4 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/[0.05]"
+              className="flex items-center justify-center rounded-[18px] border border-white/10 bg-white/4 px-4 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6"
             >
               Back to Home
             </Link>
@@ -164,7 +168,7 @@ const ManageAnnouncements = () => {
         </aside>
 
         <main className="flex min-w-0 flex-1 flex-col gap-4 overflow-y-auto overflow-x-hidden pr-1">
-          <div className="flex shrink-0 items-center justify-between rounded-[24px] border border-white/10 bg-white/[0.06] px-4 py-3 shadow-[0_14px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl">
+          <div className="flex shrink-0 items-center justify-between rounded-[24px] border border-white/10 bg-white/5 px-4 py-3 shadow-md backdrop-blur-xl">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-100/50">
                 Announcement Management
@@ -176,7 +180,7 @@ const ManageAnnouncements = () => {
 
             <Link
               to="/home"
-              className="rounded-[14px] border border-white/10 bg-black/20 px-4 py-2 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/[0.05] xl:hidden"
+              className="rounded-[14px] border border-white/10 bg-white/4 px-4 py-2 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6 xl:hidden"
             >
               Home
             </Link>
@@ -187,7 +191,7 @@ const ManageAnnouncements = () => {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35 }}
-              className="rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+              className="rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <div className="mb-4">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
@@ -221,21 +225,17 @@ const ManageAnnouncements = () => {
 
                 <div className="relative">
                   <select
-                    className="soft-input appearance-none pr-12 text-emerald-50"
+                    className="soft-input appearance-none pr-12 text-slate-900"
                     value={form.targetBarangay}
                     onChange={(e) =>
                       setForm({ ...form, targetBarangay: e.target.value })
                     }
                   >
-                    <option value="All" className="bg-[#0b1d17] text-emerald-50">
+                    <option value="All" className="text-slate-900">
                       All Barangays
                     </option>
                     {barangays.map((barangay) => (
-                      <option
-                        key={barangay}
-                        value={barangay}
-                        className="bg-[#0b1d17] text-emerald-50"
-                      >
+                      <option key={barangay} value={barangay} className="text-slate-900">
                         {barangay}
                       </option>
                     ))}
@@ -280,7 +280,7 @@ const ManageAnnouncements = () => {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.05 }}
-              className="rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+              className="rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
@@ -292,20 +292,20 @@ const ManageAnnouncements = () => {
                   </h3>
                 </div>
 
-                <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-100/60">
+                <div className="rounded-full border border-white/10 bg-white/4 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-100/60">
                   {announcements.length} total
                 </div>
               </div>
 
               {loading ? (
-                <div className="rounded-[22px] border border-white/8 bg-black/20 px-4 py-8 text-center">
+                <div className="rounded-[22px] border border-white/8 bg-white/4 px-4 py-8 text-center">
                   <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-emerald-300/20 border-t-emerald-300" />
                   <p className="text-sm text-emerald-100/70">
                     Loading announcements...
                   </p>
                 </div>
               ) : announcements.length === 0 ? (
-                <div className="rounded-[22px] border border-white/8 bg-black/20 px-4 py-8 text-center">
+                <div className="rounded-[22px] border border-white/8 bg-white/4 px-4 py-8 text-center">
                   <p className="text-lg font-semibold text-emerald-50">
                     No announcements found
                   </p>
@@ -315,7 +315,7 @@ const ManageAnnouncements = () => {
                   {announcements.map((announcement) => (
                     <div
                       key={announcement._id}
-                      className="rounded-[22px] border border-white/8 bg-black/20 p-4"
+                      className="rounded-[22px] border border-white/8 bg-white/4 p-4"
                     >
                       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                         <div className="min-w-0 flex-1">
@@ -328,7 +328,7 @@ const ManageAnnouncements = () => {
                             </span>
                           </div>
 
-                          <div className="mt-3 rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-3">
+                          <div className="mt-3 rounded-2xl border border-white/8 bg-white/4 px-3 py-3">
                             <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                               Message
                             </p>

@@ -143,11 +143,15 @@ const ManageReports = () => {
   }
 
   return (
-    <div className="app-shell h-screen overflow-hidden">
+    <div className="app-shell relative h-screen overflow-hidden bg-slate-950">
       <BackgroundFx />
+      <div className="pointer-events-none absolute inset-0 bg-slate-950/75" />
+      <div className="pointer-events-none absolute left-[-140px] top-[90px] h-[340px] w-[340px] rounded-full bg-emerald-400/7 blur-[100px]" />
+      <div className="pointer-events-none absolute right-[-120px] top-[140px] h-[420px] w-[420px] rounded-full bg-green-400/5 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-[-160px] left-[28%] h-[420px] w-[420px] rounded-full bg-teal-300/5 blur-[130px]" />
 
       <div className="relative z-10 flex h-screen gap-4 p-3 lg:p-4">
-        <aside className="hidden h-full w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl xl:flex xl:flex-col">
+        <aside className="hidden h-full w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl xl:flex xl:flex-col">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-100/50">
               Operator Panel
@@ -171,8 +175,8 @@ const ManageReports = () => {
                   to={item.to}
                   className={`block rounded-[20px] border px-4 py-3 transition duration-300 ${
                     active
-                      ? "border-emerald-300/20 bg-emerald-400/10 text-white shadow-[0_0_0_1px_rgba(52,211,153,0.08)]"
-                      : "border-white/10 bg-black/20 text-emerald-100/78 hover:border-emerald-300/20 hover:bg-white/[0.05] hover:text-white"
+                      ? "border-emerald-300/20 bg-emerald-400/10 text-white"
+                      : "border-white/10 bg-white/4 text-emerald-100/78 hover:border-emerald-300/20 hover:bg-white/6 hover:text-white"
                   }`}
                 >
                   <p className="text-sm font-semibold">{item.label}</p>
@@ -184,7 +188,7 @@ const ManageReports = () => {
           <div className="mt-auto">
             <Link
               to="/home"
-              className="flex items-center justify-center rounded-[18px] border border-white/10 bg-black/20 px-4 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/[0.05]"
+              className="flex items-center justify-center rounded-[18px] border border-white/10 bg-white/4 px-4 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6"
             >
               Back to Home
             </Link>
@@ -192,7 +196,7 @@ const ManageReports = () => {
         </aside>
 
         <main className="flex min-w-0 flex-1 flex-col gap-4 overflow-y-auto overflow-x-hidden pr-1">
-          <div className="flex shrink-0 items-center justify-between rounded-[24px] border border-white/10 bg-white/[0.06] px-4 py-3 shadow-[0_14px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl">
+          <div className="flex shrink-0 items-center justify-between rounded-[24px] border border-white/10 bg-white/5 px-4 py-3 shadow-md backdrop-blur-xl">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-100/50">
                 Report Management
@@ -204,7 +208,7 @@ const ManageReports = () => {
 
             <Link
               to="/home"
-              className="rounded-[14px] border border-white/10 bg-black/20 px-4 py-2 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/[0.05] xl:hidden"
+              className="rounded-[14px] border border-white/10 bg-white/4 px-4 py-2 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6 xl:hidden"
             >
               Home
             </Link>
@@ -215,7 +219,7 @@ const ManageReports = () => {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+              className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                 Total
@@ -232,7 +236,7 @@ const ManageReports = () => {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.04 }}
-              className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+              className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                 Pending
@@ -246,7 +250,7 @@ const ManageReports = () => {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.08 }}
-              className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+              className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                 In Progress
@@ -260,7 +264,7 @@ const ManageReports = () => {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.12 }}
-              className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+              className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                 Resolved
@@ -275,7 +279,7 @@ const ManageReports = () => {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.05 }}
-            className="rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+            className="rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
           >
             <div className="mb-4 flex items-center justify-between gap-4">
               <div>
@@ -287,20 +291,20 @@ const ManageReports = () => {
                 </h3>
               </div>
 
-              <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-100/60">
+              <div className="rounded-full border border-white/10 bg-white/4 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-100/60">
                 Rejected: {rejectedCount}
               </div>
             </div>
 
             {loading ? (
-              <div className="rounded-[22px] border border-white/8 bg-black/20 px-4 py-8 text-center">
+              <div className="rounded-[22px] border border-white/8 bg-white/4 px-4 py-8 text-center">
                 <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-emerald-300/20 border-t-emerald-300" />
                 <p className="text-sm text-emerald-100/70">
                   Loading reports...
                 </p>
               </div>
             ) : reports.length === 0 ? (
-              <div className="rounded-[22px] border border-white/8 bg-black/20 px-4 py-8 text-center">
+              <div className="rounded-[22px] border border-white/8 bg-white/4 px-4 py-8 text-center">
                 <p className="text-lg font-semibold text-emerald-50">
                   No reports found
                 </p>
@@ -313,7 +317,7 @@ const ManageReports = () => {
                 {reports.map((report) => (
                   <div
                     key={report._id}
-                    className="rounded-[22px] border border-white/8 bg-black/20 p-4"
+                    className="rounded-[22px] border border-white/8 bg-white/4 p-4"
                   >
                     <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
                       <div className="min-w-0 flex-1">
@@ -331,7 +335,7 @@ const ManageReports = () => {
                         </div>
 
                         <div className="mt-3 grid gap-3 md:grid-cols-2">
-                          <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-3">
+                          <div className="rounded-2xl border border-white/8 bg-white/4 px-3 py-3">
                             <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                               Submitted By
                             </p>
@@ -340,7 +344,7 @@ const ManageReports = () => {
                             </p>
                           </div>
 
-                          <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-3">
+                          <div className="rounded-2xl border border-white/8 bg-white/4 px-3 py-3">
                             <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                               Location
                             </p>
@@ -350,7 +354,7 @@ const ManageReports = () => {
                           </div>
                         </div>
 
-                        <div className="mt-3 rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-3">
+                        <div className="mt-3 rounded-2xl border border-white/8 bg-white/4 px-3 py-3">
                           <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                             Description
                           </p>
@@ -360,7 +364,7 @@ const ManageReports = () => {
                         </div>
 
                         {report.image && (
-                          <div className="mt-3 rounded-2xl border border-white/8 bg-white/[0.03] p-3">
+                          <div className="mt-3 rounded-2xl border border-white/8 bg-white/4 p-3">
                             <p className="mb-2 text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                               Attached Image
                             </p>
@@ -376,36 +380,16 @@ const ManageReports = () => {
                       <div className="flex shrink-0 flex-col gap-3 xl:w-[220px]">
                         <div className="relative">
                           <select
-                            className="soft-input appearance-none pr-12 text-emerald-50"
+                            className="soft-input appearance-none pr-12 text-slate-900"
                             value={String(report.status || "").toLowerCase()}
                             onChange={(e) =>
                               handleStatusChange(report._id, e.target.value)
                             }
                           >
-                            <option
-                              value="pending"
-                              className="bg-[#0b1d17] text-emerald-50"
-                            >
-                              Pending
-                            </option>
-                            <option
-                              value="in-progress"
-                              className="bg-[#0b1d17] text-emerald-50"
-                            >
-                              In Progress
-                            </option>
-                            <option
-                              value="rejected"
-                              className="bg-[#0b1d17] text-emerald-50"
-                            >
-                              Rejected
-                            </option>
-                            <option
-                              value="resolved"
-                              className="bg-[#0b1d17] text-emerald-50"
-                            >
-                              Resolved
-                            </option>
+                            <option value="pending" className="text-slate-900">Pending</option>
+                            <option value="in-progress" className="text-slate-900">In Progress</option>
+                            <option value="rejected" className="text-slate-900">Rejected</option>
+                            <option value="resolved" className="text-slate-900">Resolved</option>
                           </select>
 
                           <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-emerald-200/70">

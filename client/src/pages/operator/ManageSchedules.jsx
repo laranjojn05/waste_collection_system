@@ -184,11 +184,15 @@ const ManageSchedules = () => {
   }
 
   return (
-    <div className="app-shell h-screen overflow-hidden">
+    <div className="app-shell relative h-screen overflow-hidden bg-slate-950">
       <BackgroundFx />
+      <div className="pointer-events-none absolute inset-0 bg-slate-950/75" />
+      <div className="pointer-events-none absolute left-[-140px] top-[90px] h-[340px] w-[340px] rounded-full bg-emerald-400/7 blur-[100px]" />
+      <div className="pointer-events-none absolute right-[-120px] top-[140px] h-[420px] w-[420px] rounded-full bg-green-400/5 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-[-160px] left-[28%] h-[420px] w-[420px] rounded-full bg-teal-300/5 blur-[130px]" />
 
       <div className="relative z-10 flex h-screen gap-4 p-3 lg:p-4">
-        <aside className="hidden h-full w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl xl:flex xl:flex-col">
+        <aside className="hidden h-full w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl xl:flex xl:flex-col">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-100/50">
               Operator Panel
@@ -211,8 +215,8 @@ const ManageSchedules = () => {
                   to={item.to}
                   className={`block rounded-[20px] border px-4 py-3 transition duration-300 ${
                     active
-                      ? "border-emerald-300/20 bg-emerald-400/10 text-white shadow-[0_0_0_1px_rgba(52,211,153,0.08)]"
-                      : "border-white/10 bg-black/20 text-emerald-100/78 hover:border-emerald-300/20 hover:bg-white/[0.05] hover:text-white"
+                      ? "border-emerald-300/20 bg-emerald-400/10 text-white"
+                      : "border-white/10 bg-white/4 text-emerald-100/78 hover:border-emerald-300/20 hover:bg-white/6 hover:text-white"
                   }`}
                 >
                   <p className="text-sm font-semibold">{item.label}</p>
@@ -224,7 +228,7 @@ const ManageSchedules = () => {
           <div className="mt-auto">
             <Link
               to="/home"
-              className="flex items-center justify-center rounded-[18px] border border-white/10 bg-black/20 px-4 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/[0.05]"
+              className="flex items-center justify-center rounded-[18px] border border-white/10 bg-white/4 px-4 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6"
             >
               Back to Home
             </Link>
@@ -232,7 +236,7 @@ const ManageSchedules = () => {
         </aside>
 
         <main className="flex min-w-0 flex-1 flex-col gap-4 overflow-y-auto overflow-x-hidden pr-1">
-          <div className="flex shrink-0 items-center justify-between rounded-[24px] border border-white/10 bg-white/[0.06] px-4 py-3 shadow-[0_14px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl">
+          <div className="flex shrink-0 items-center justify-between rounded-[24px] border border-white/10 bg-white/5 px-4 py-3 shadow-md backdrop-blur-xl">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-100/50">
                 Schedule Management
@@ -244,7 +248,7 @@ const ManageSchedules = () => {
 
             <Link
               to="/home"
-              className="rounded-[14px] border border-white/10 bg-black/20 px-4 py-2 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/[0.05] xl:hidden"
+              className="rounded-[14px] border border-white/10 bg-white/4 px-4 py-2 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6 xl:hidden"
             >
               Home
             </Link>
@@ -255,7 +259,7 @@ const ManageSchedules = () => {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35 }}
-              className="rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+              className="rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
@@ -277,20 +281,16 @@ const ManageSchedules = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="relative">
                   <select
-                    className="soft-input appearance-none pr-12 text-emerald-50"
+                    className="soft-input appearance-none pr-12 text-slate-900"
                     value={form.barangay}
                     onChange={(e) => setForm({ ...form, barangay: e.target.value })}
                     required
                   >
-                    <option value="" className="bg-[#0b1d17] text-emerald-50">
+                    <option value="" className="text-slate-900">
                       Select Barangay
                     </option>
                     {barangays.map((b) => (
-                      <option
-                        key={b}
-                        value={b}
-                        className="bg-[#0b1d17] text-emerald-50"
-                      >
+                      <option key={b} value={b} className="text-slate-900">
                         {b}
                       </option>
                     ))}
@@ -325,32 +325,20 @@ const ManageSchedules = () => {
 
                 <div className="relative">
                   <select
-                    className="soft-input appearance-none pr-12 text-emerald-50"
+                    className="soft-input appearance-none pr-12 text-slate-900"
                     value={form.wasteType}
                     onChange={(e) => setForm({ ...form, wasteType: e.target.value })}
                   >
-                    <option
-                      value="Biodegradable"
-                      className="bg-[#0b1d17] text-emerald-50"
-                    >
+                    <option value="Biodegradable" className="text-slate-900">
                       Biodegradable
                     </option>
-                    <option
-                      value="Non-Biodegradable"
-                      className="bg-[#0b1d17] text-emerald-50"
-                    >
+                    <option value="Non-Biodegradable" className="text-slate-900">
                       Non-Biodegradable
                     </option>
-                    <option
-                      value="Recyclable"
-                      className="bg-[#0b1d17] text-emerald-50"
-                    >
+                    <option value="Recyclable" className="text-slate-900">
                       Recyclable
                     </option>
-                    <option
-                      value="Special Waste"
-                      className="bg-[#0b1d17] text-emerald-50"
-                    >
+                    <option value="Special Waste" className="text-slate-900">
                       Special Waste
                     </option>
                   </select>
@@ -374,17 +362,17 @@ const ManageSchedules = () => {
 
                 <div className="relative">
                   <select
-                    className="soft-input appearance-none pr-12 text-emerald-50"
+                    className="soft-input appearance-none pr-12 text-slate-900"
                     value={form.status}
                     onChange={(e) => setForm({ ...form, status: e.target.value })}
                   >
-                    <option value="Upcoming" className="bg-[#0b1d17] text-emerald-50">
+                    <option value="Upcoming" className="text-slate-900">
                       Upcoming
                     </option>
-                    <option value="Completed" className="bg-[#0b1d17] text-emerald-50">
+                    <option value="Completed" className="text-slate-900">
                       Completed
                     </option>
-                    <option value="Cancelled" className="bg-[#0b1d17] text-emerald-50">
+                    <option value="Cancelled" className="text-slate-900">
                       Cancelled
                     </option>
                   </select>
@@ -439,7 +427,7 @@ const ManageSchedules = () => {
               className="space-y-4"
             >
               <div className="grid gap-4 sm:grid-cols-3">
-                <div className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl">
+                <div className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                     Total
                   </p>
@@ -451,7 +439,7 @@ const ManageSchedules = () => {
                   </p>
                 </div>
 
-                <div className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl">
+                <div className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                     Upcoming
                   </p>
@@ -463,7 +451,7 @@ const ManageSchedules = () => {
                   </p>
                 </div>
 
-                <div className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl">
+                <div className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                     Completed
                   </p>
@@ -476,7 +464,7 @@ const ManageSchedules = () => {
                 </div>
               </div>
 
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl">
+              <div className="rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl">
                 <div className="mb-4 flex items-center justify-between gap-4">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
@@ -487,20 +475,20 @@ const ManageSchedules = () => {
                     </h3>
                   </div>
 
-                  <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-100/60">
+                  <div className="rounded-full border border-white/10 bg-white/4 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-100/60">
                     Cancelled: {cancelledCount}
                   </div>
                 </div>
 
                 {loading ? (
-                  <div className="rounded-[22px] border border-white/8 bg-black/20 px-4 py-8 text-center">
+                  <div className="rounded-[22px] border border-white/8 bg-white/4 px-4 py-8 text-center">
                     <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-emerald-300/20 border-t-emerald-300" />
                     <p className="text-sm text-emerald-100/70">
                       Loading schedules...
                     </p>
                   </div>
                 ) : schedules.length === 0 ? (
-                  <div className="rounded-[22px] border border-white/8 bg-black/20 px-4 py-8 text-center">
+                  <div className="rounded-[22px] border border-white/8 bg-white/4 px-4 py-8 text-center">
                     <p className="text-lg font-semibold text-emerald-50">
                       No schedules found
                     </p>
@@ -513,7 +501,7 @@ const ManageSchedules = () => {
                     {schedules.map((schedule) => (
                       <div
                         key={schedule._id}
-                        className="rounded-[22px] border border-white/8 bg-black/20 p-4"
+                        className="rounded-[22px] border border-white/8 bg-white/4 p-4"
                       >
                         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                           <div className="min-w-0">
@@ -531,7 +519,7 @@ const ManageSchedules = () => {
                             </div>
 
                             <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                              <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-3">
+                              <div className="rounded-2xl border border-white/8 bg-white/4 px-3 py-3">
                                 <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                                   Collection Date
                                 </p>
@@ -540,7 +528,7 @@ const ManageSchedules = () => {
                                 </p>
                               </div>
 
-                              <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-3">
+                              <div className="rounded-2xl border border-white/8 bg-white/4 px-3 py-3">
                                 <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                                   Waste Type
                                 </p>
@@ -550,7 +538,7 @@ const ManageSchedules = () => {
                               </div>
                             </div>
 
-                            <div className="mt-3 rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-3">
+                            <div className="mt-3 rounded-2xl border border-white/8 bg-white/4 px-3 py-3">
                               <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                                 Note
                               </p>

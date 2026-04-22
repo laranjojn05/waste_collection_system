@@ -21,7 +21,6 @@ const Navbar = () => {
   { to: "/schedule", label: "Schedule" },
   ...(user?.role === "user"
     ? [
-        { to: "/report", label: "Report" },
         { to: "/my-reports", label: "My Reports" },
       ]
     : []),
@@ -49,11 +48,8 @@ const dashboardLink =
         <div className="flex min-w-0 items-center justify-between gap-4">
           <div className="min-w-0">
             <h1 className="text-lg font-bold tracking-tight text-emerald-50 sm:text-xl xl:text-2xl">
-              Waste Collection System
+              Community Waste Collection Management System
             </h1>
-            <p className="mt-1 text-xs text-emerald-100/60 sm:text-sm">
-              Aurora local waste collection and reporting
-            </p>
           </div>
 
           <div className="flex shrink-0 items-center gap-3 xl:hidden">

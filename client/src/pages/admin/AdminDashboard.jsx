@@ -17,7 +17,7 @@ import { getUserReports } from "../../services/reportService";
 const MotionDiv = motion.div;
 
 const panelClassName =
-  "rounded-[20px] border border-white/10 bg-white/[0.06] shadow-[0_14px_34px_rgba(0,0,0,0.18)] backdrop-blur-2xl";
+  "rounded-[20px] border border-white/10 bg-white/5 shadow-md backdrop-blur-xl";
 
 const SectionHeading = ({ eyebrow, title, action }) => (
   <div className="flex items-start justify-between gap-3">
@@ -34,14 +34,12 @@ const SectionHeading = ({ eyebrow, title, action }) => (
 );
 
 const StatCard = ({ label, value, helper }) => (
-  <div
-    className={`${panelClassName} flex min-h-[88px] flex-col justify-between p-3`}
-  >
+  <div className={`${panelClassName} flex min-h-[80px] flex-col justify-between p-3`}>
     <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45 sm:text-[10px]">
       {label}
     </p>
     <div className="mt-2">
-      <p className="text-[1.45rem] font-bold tracking-tight text-emerald-50 sm:text-[1.7rem]">
+      <p className="text-[1.35rem] font-bold tracking-tight text-emerald-50 sm:text-[1.55rem]">
         {value}
       </p>
       <p className="mt-0.5 text-[11px] text-emerald-100/58">{helper}</p>
@@ -50,7 +48,7 @@ const StatCard = ({ label, value, helper }) => (
 );
 
 const OverviewCard = ({ label, value }) => (
-  <div className="rounded-[14px] border border-white/8 bg-black/20 px-3 py-2">
+  <div className="rounded-[14px] border border-white/8 bg-white/4 px-3 py-2">
     <p className="text-[9px] uppercase tracking-[0.16em] text-emerald-100/45 sm:text-[10px]">
       {label}
     </p>
@@ -61,7 +59,7 @@ const OverviewCard = ({ label, value }) => (
 );
 
 const ItemCard = ({ title, meta, body }) => (
-  <div className="rounded-[15px] border border-white/6 bg-black/10 px-3 py-3">
+  <div className="rounded-[15px] border border-white/8 bg-white/4 px-3 py-3">
     <p className="text-[13px] font-semibold text-emerald-50">{title}</p>
     <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-emerald-100/45">
       {meta}
@@ -187,7 +185,7 @@ const AdminDashboard = () => {
     if (!active || !payload || !payload.length) return null;
 
     return (
-      <div className="rounded-xl border border-white/10 bg-[#071710]/95 px-3 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.24)] backdrop-blur-xl">
+      <div className="rounded-xl border border-white/10 bg-[#071710]/95 px-3 py-2 shadow-md backdrop-blur-xl">
         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-100/55">
           {label || payload[0]?.name}
         </p>
@@ -207,14 +205,18 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="app-shell min-h-screen xl:h-screen xl:overflow-hidden">
+    <div className="app-shell relative h-screen overflow-hidden bg-slate-950">
       <BackgroundFx />
+      <div className="pointer-events-none absolute inset-0 bg-slate-950/75" />
+      <div className="pointer-events-none absolute left-[-140px] top-[90px] h-[340px] w-[340px] rounded-full bg-emerald-400/7 blur-[100px]" />
+      <div className="pointer-events-none absolute right-[-120px] top-[140px] h-[420px] w-[420px] rounded-full bg-green-400/5 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-[-160px] left-[28%] h-[420px] w-[420px] rounded-full bg-teal-300/5 blur-[130px]" />
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1480px] gap-3 px-3 py-2 sm:px-4 sm:py-4 xl:h-screen xl:min-h-0 xl:gap-4 xl:overflow-hidden">
+      <div className="relative z-10 mx-auto flex h-screen w-full max-w-[1480px] gap-3 px-3 py-3 sm:px-4 sm:py-4 xl:gap-4 xl:overflow-hidden">
         <aside
-          className={`hidden w-[208px] shrink-0 ${panelClassName} xl:flex xl:h-[calc(100vh-2rem)] xl:flex-col xl:p-3`}
+          className={`hidden w-[208px] shrink-0 ${panelClassName} xl:flex xl:h-full xl:flex-col xl:p-3`}
         >
-          <div className="rounded-[16px] border border-white/8 bg-black/15 p-3">
+          <div className="rounded-[16px] border border-white/8 bg-white/4 p-3">
             <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-emerald-100/50">
               Admin Panel
             </p>
@@ -236,8 +238,8 @@ const AdminDashboard = () => {
                   to={item.to}
                   className={`block rounded-[14px] border px-3 py-2.5 transition duration-300 ${
                     active
-                      ? "border-emerald-300/20 bg-emerald-400/10 text-white shadow-[0_0_0_1px_rgba(52,211,153,0.08)]"
-                      : "border-white/10 bg-black/20 text-emerald-100/75 hover:-translate-y-0.5 hover:border-emerald-300/20 hover:bg-white/[0.05] hover:text-white"
+                      ? "border-emerald-300/20 bg-emerald-400/10 text-white"
+                      : "border-white/10 bg-white/4 text-emerald-100/75 hover:border-emerald-300/20 hover:bg-white/6 hover:text-white"
                   }`}
                 >
                   <p className="text-[13px] font-semibold">{item.label}</p>
@@ -249,7 +251,7 @@ const AdminDashboard = () => {
           <div className="mt-auto pt-3">
             <Link
               to="/home"
-              className="flex items-center justify-center rounded-[14px] border border-white/10 bg-black/20 px-3 py-2.5 text-[13px] font-semibold text-emerald-50 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-300/20 hover:bg-white/[0.05]"
+              className="flex items-center justify-center rounded-[14px] border border-white/10 bg-white/4 px-3 py-2.5 text-[13px] font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6"
             >
               Back to Home
             </Link>
@@ -257,7 +259,7 @@ const AdminDashboard = () => {
         </aside>
 
         <main className="flex min-w-0 flex-1 flex-col gap-3 xl:min-h-0 xl:overflow-hidden">
-          <div className={`${panelClassName} px-4 py-2 xl:shrink-0`}>
+          <div className={`${panelClassName} px-4 py-2.5 xl:shrink-0`}>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-emerald-100/50 sm:text-[10px]">
@@ -279,7 +281,7 @@ const AdminDashboard = () => {
                       className={`rounded-[13px] border px-3 py-2 text-sm font-semibold transition duration-300 ${
                         active
                           ? "border-emerald-300/20 bg-emerald-400/10 text-white"
-                          : "border-white/10 bg-black/20 text-emerald-100/72 hover:border-emerald-300/20 hover:bg-white/[0.05] hover:text-white"
+                          : "border-white/10 bg-white/4 text-emerald-100/72 hover:border-emerald-300/20 hover:bg-white/6 hover:text-white"
                       }`}
                     >
                       {item.label}
@@ -289,7 +291,7 @@ const AdminDashboard = () => {
 
                 <Link
                   to="/home"
-                  className="rounded-[13px] border border-white/10 bg-black/20 px-3 py-2 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/[0.05]"
+                  className="rounded-[13px] border border-white/10 bg-white/4 px-3 py-2 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6"
                 >
                   Home
                 </Link>
@@ -299,7 +301,7 @@ const AdminDashboard = () => {
 
           {loading ? (
             <div
-              className={`${panelClassName} flex min-h-[320px] flex-1 items-center justify-center xl:min-h-0`}
+              className={`${panelClassName} flex min-h-0 flex-1 items-center justify-center`}
             >
               <div className="text-center">
                 <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-2 border-emerald-300/20 border-t-emerald-300" />
@@ -329,14 +331,14 @@ const AdminDashboard = () => {
                   ))}
                 </section>
 
-                <section className="grid gap-3 xl:h-full xl:min-h-0 xl:grid-rows-[190px_1fr]">
-                  <div className={`${panelClassName} flex h-full min-h-0 flex-col p-4 overflow-hidden`}>
+                <section className="grid gap-3 xl:h-full xl:min-h-0 xl:grid-rows-[170px_1fr]">
+                  <div className={`${panelClassName} flex h-full min-h-0 flex-col p-3.5 overflow-hidden`}>
                     <SectionHeading
                       eyebrow="Moderation Insight"
                       title="Admin activity overview"
                     />
 
-                    <div className="mt-2 h-full min-h-0 rounded-[20px] border border-white/10 bg-black/25 p-2 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
+                    <div className="mt-2 h-full min-h-0 rounded-[20px] border border-white/10 bg-white/4 p-2">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={chartData} barCategoryGap={18}>
                           <CartesianGrid
@@ -373,13 +375,13 @@ const AdminDashboard = () => {
                     </div>
                   </div>
 
-                  <div className={`${panelClassName} flex h-full min-h-0 flex-col justify-center p-4`}>
+                  <div className={`${panelClassName} flex h-full min-h-0 flex-col justify-center p-3.5`}>
                     <SectionHeading
                       eyebrow="Admin Summary"
                       title="Moderation overview"
                     />
 
-                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
                       {summaryCards.map((item) => (
                         <OverviewCard
                           key={item.label}
@@ -398,7 +400,7 @@ const AdminDashboard = () => {
                 transition={{ duration: 0.3, delay: 0.04 }}
                 className="flex min-w-0 flex-col gap-3 xl:h-full xl:min-h-0"
               >
-                <section className={`${panelClassName} p-4 xl:shrink-0`}>
+                <section className={`${panelClassName} p-3.5 xl:shrink-0`}>
                   <SectionHeading eyebrow="Quick Access" title="Sections" />
 
                   <div className="mt-3 grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
@@ -408,7 +410,7 @@ const AdminDashboard = () => {
                         <Link
                           key={item.to}
                           to={item.to}
-                          className="group rounded-[14px] border border-white/6 bg-black/10 px-3 py-2.5 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-300/20 hover:bg-white/[0.05]"
+                          className="group rounded-[14px] border border-white/8 bg-white/4 px-3 py-2.5 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6"
                         >
                           <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-emerald-100/42 sm:text-[10px]">
                             Section 0{index + 1}
@@ -425,7 +427,7 @@ const AdminDashboard = () => {
                 </section>
 
                 <section
-                  className={`${panelClassName} flex min-h-0 flex-col p-4 xl:flex-1 xl:overflow-hidden`}
+                  className={`${panelClassName} flex min-h-0 flex-col p-3.5 xl:flex-1 xl:overflow-hidden`}
                 >
                   <SectionHeading
                     eyebrow="Recent User Reports"
@@ -433,7 +435,7 @@ const AdminDashboard = () => {
                     action={
                       <Link
                         to="/admin/user-reports"
-                        className="rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-100/60 transition duration-300 hover:border-emerald-300/20 hover:text-emerald-50"
+                        className="rounded-full border border-white/10 bg-white/4 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-100/60 transition duration-300 hover:border-emerald-300/20 hover:text-emerald-50"
                       >
                         Open
                       </Link>
@@ -453,7 +455,7 @@ const AdminDashboard = () => {
                         />
                       ))
                     ) : (
-                      <div className="rounded-[15px] border border-white/6 bg-black/10 px-3 py-3">
+                      <div className="rounded-[15px] border border-white/8 bg-white/4 px-3 py-3">
                         <p className="text-sm text-emerald-100/65">
                           No recent user report data available.
                         </p>

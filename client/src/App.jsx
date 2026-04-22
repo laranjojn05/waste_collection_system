@@ -3,7 +3,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Schedule from "./pages/Schedule";
-import Report from "./pages/Report";
 import MyReports from "./pages/MyReports";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -110,15 +109,6 @@ function App() {
             <ProtectedRoute>
               <Schedule />
             </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/report"
-          element={
-            <UserRoute>
-              <Report />
-            </UserRoute>
           }
         />
 

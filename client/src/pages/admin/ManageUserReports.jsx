@@ -52,26 +52,22 @@ const ManageUserReports = () => {
       return {
         label: "Critical",
         className: "border-red-400/30 bg-red-500/10 text-red-200",
-        cardClass:
-          "border-red-400/25 bg-gradient-to-br from-red-500/10 to-white/[0.04]",
+        cardClass: "border-red-400/25 bg-red-500/10",
       };
     }
 
     if (count === 2) {
       return {
         label: "Warning 2",
-        className:
-          "border-yellow-400/30 bg-yellow-500/10 text-yellow-200",
-        cardClass:
-          "border-yellow-400/20 bg-gradient-to-br from-yellow-500/10 to-white/[0.04]",
+        className: "border-yellow-400/30 bg-yellow-500/10 text-yellow-200",
+        cardClass: "border-yellow-400/20 bg-yellow-500/10",
       };
     }
 
     return {
       label: "Warning 1",
       className: "border-cyan-400/30 bg-cyan-500/10 text-cyan-200",
-      cardClass:
-        "border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02]",
+      cardClass: "border-white/10 bg-white/5",
     };
   };
 
@@ -86,11 +82,15 @@ const ManageUserReports = () => {
   if (userInfo.role !== "admin") return <Navigate to="/home" />;
 
   return (
-    <div className="app-shell min-h-screen">
+    <div className="app-shell relative min-h-screen bg-slate-950">
       <BackgroundFx />
+      <div className="pointer-events-none absolute inset-0 bg-slate-950/75" />
+      <div className="pointer-events-none absolute left-[-140px] top-[90px] h-[340px] w-[340px] rounded-full bg-emerald-400/7 blur-[100px]" />
+      <div className="pointer-events-none absolute right-[-120px] top-[140px] h-[420px] w-[420px] rounded-full bg-green-400/5 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-[-160px] left-[28%] h-[420px] w-[420px] rounded-full bg-teal-300/5 blur-[130px]" />
 
       <div className="relative z-10 flex min-h-screen gap-4 p-3 lg:p-4">
-        <aside className="hidden w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl xl:flex xl:flex-col">
+        <aside className="hidden w-[250px] shrink-0 rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl xl:flex xl:flex-col">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-100/50">
               Admin Panel
@@ -113,8 +113,8 @@ const ManageUserReports = () => {
                   to={item.to}
                   className={`block rounded-[20px] border px-4 py-3 transition duration-300 ${
                     active
-                      ? "border-emerald-300/20 bg-emerald-400/10 text-white shadow-[0_0_0_1px_rgba(52,211,153,0.08)]"
-                      : "border-white/10 bg-black/20 text-emerald-100/78 hover:border-emerald-300/20 hover:bg-white/[0.05] hover:text-white"
+                      ? "border-emerald-300/20 bg-emerald-400/10 text-white"
+                      : "border-white/10 bg-white/4 text-emerald-100/78 hover:border-emerald-300/20 hover:bg-white/6 hover:text-white"
                   }`}
                 >
                   <p className="text-sm font-semibold">{item.label}</p>
@@ -126,7 +126,7 @@ const ManageUserReports = () => {
           <div className="mt-auto">
             <Link
               to="/home"
-              className="flex items-center justify-center rounded-[18px] border border-white/10 bg-black/20 px-4 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/[0.05]"
+              className="flex items-center justify-center rounded-[18px] border border-white/10 bg-white/4 px-4 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:border-emerald-300/20 hover:bg-white/6"
             >
               Back to Home
             </Link>
@@ -134,7 +134,7 @@ const ManageUserReports = () => {
         </aside>
 
         <main className="flex min-w-0 flex-1 flex-col gap-4 overflow-y-auto overflow-x-hidden pr-1">
-          <div className="rounded-[24px] border border-white/10 bg-white/[0.06] px-5 py-4 shadow-[0_14px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl">
+          <div className="rounded-[24px] border border-white/10 bg-white/5 px-5 py-4 shadow-md backdrop-blur-xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-100/50">
               User Report Management
             </p>
@@ -150,7 +150,7 @@ const ManageUserReports = () => {
             <MotionDiv
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+              className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                 Reported Users
@@ -167,7 +167,7 @@ const ManageUserReports = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.04 }}
-              className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+              className="rounded-[24px] border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-xl"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/45">
                 Total Reports
@@ -184,7 +184,7 @@ const ManageUserReports = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08 }}
-              className="rounded-[24px] border border-red-400/20 bg-red-500/10 p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+              className="rounded-[24px] border border-red-400/20 bg-red-500/10 p-4 shadow-md backdrop-blur-xl"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-red-200/80">
                 Critical Cases
@@ -199,7 +199,7 @@ const ManageUserReports = () => {
           </div>
 
           {reports.length === 0 ? (
-            <div className="rounded-[28px] border border-white/10 bg-white/[0.06] px-5 py-10 text-center shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl">
+            <div className="rounded-[28px] border border-white/10 bg-white/5 px-5 py-10 text-center shadow-md backdrop-blur-xl">
               <p className="text-xl font-semibold text-emerald-50">
                 No user reports found
               </p>
@@ -220,7 +220,7 @@ const ManageUserReports = () => {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.03 }}
-                    className={`rounded-[28px] border p-5 shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-2xl ${warning.cardClass}`}
+                    className={`rounded-[28px] border p-5 shadow-md backdrop-blur-xl ${warning.cardClass}`}
                   >
                     <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
                       <div className="min-w-0 flex-1">
@@ -235,13 +235,13 @@ const ManageUserReports = () => {
                             {warning.label}
                           </span>
 
-                          <span className="inline-flex rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-100/70">
+                          <span className="inline-flex rounded-full border border-white/10 bg-white/4 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-100/70">
                             {count} report{count > 1 ? "s" : ""}
                           </span>
                         </div>
 
                         <div className="mt-4 grid gap-3 md:grid-cols-2">
-                          <div className="rounded-2xl border border-white/8 bg-black/20 px-4 py-3">
+                          <div className="rounded-2xl border border-white/8 bg-white/4 px-4 py-3">
                             <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                               Email
                             </p>
@@ -250,7 +250,7 @@ const ManageUserReports = () => {
                             </p>
                           </div>
 
-                          <div className="rounded-2xl border border-white/8 bg-black/20 px-4 py-3">
+                          <div className="rounded-2xl border border-white/8 bg-white/4 px-4 py-3">
                             <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-100/45">
                               Current Status
                             </p>
@@ -284,7 +284,7 @@ const ManageUserReports = () => {
                       {group.reports.map((report, idx) => (
                         <div
                           key={report._id}
-                          className="rounded-[20px] border border-white/8 bg-black/20 px-4 py-3"
+                          className="rounded-[20px] border border-white/8 bg-white/4 px-4 py-3"
                         >
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-100/45">
